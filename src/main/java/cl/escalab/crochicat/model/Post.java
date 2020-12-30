@@ -1,9 +1,11 @@
 package cl.escalab.crochicat.model;
 
+import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
+@ApiModel(description = "post acerca de las fotos publicadas")
 @Entity
 @Table(name="post")
 public class Post {

@@ -4,6 +4,7 @@ import cl.escalab.crochicat.exception.ModelNotFoundException;
 import cl.escalab.crochicat.model.Comment;
 import cl.escalab.crochicat.model.Post;
 import cl.escalab.crochicat.service.CommentService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,9 @@ public class CommentController {
         Comment commentSaved = commentService.save(comment);
         return new ResponseEntity<Comment>(commentSaved, HttpStatus.OK);
     }
-
+    @ApiOperation(value = "obtiene un comentario especifico",
+                  notes = "requiere el id de la clase",
+                  response = Object.class)
     @GetMapping("/{id}")
     public ResponseEntity<Comment> getComment(@PathVariable("id") UUID id){
 

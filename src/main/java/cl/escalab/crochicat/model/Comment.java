@@ -1,10 +1,11 @@
 package cl.escalab.crochicat.model;
 
+import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
-
+@ApiModel(description = "Comentario de algun post")
 @Entity
 @Table(name="comment")
 public class Comment {

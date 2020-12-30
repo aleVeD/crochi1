@@ -1,5 +1,6 @@
 package cl.escalab.crochicat.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.UUID;
@@ -15,12 +16,12 @@ public class Photo {
     private UUID idPhoto;
     @Column(name="title", length = 400)
     private String title;
+    @ApiModelProperty(notes = "esta propiedad es obligatoria")
     @Column(name = "image")
     private Byte image;
     public UUID getIdPhoto() {
         return idPhoto;
     }
-
     public void setIdPhoto(UUID idPhoto) {
         this.idPhoto = idPhoto;
     }
