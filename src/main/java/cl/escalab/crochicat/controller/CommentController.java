@@ -42,4 +42,23 @@ public class CommentController {
             throw new ModelNotFoundException("id: "+id+" no encontrado");
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Comment> deleteComment(@PathVariable("id") UUID id){
+        Comment comment = getCommentById(id);
+        commentService.delete(comment.getId());
+        return new ResponseEntity<>(comment, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Comment> updateComment(@RequestBody Comment comment, @PathVariable("id") UUID id){
+        Comment commentUpdated = commentService.save(commentService.save(getCommentById(id)));
+        return new ResponseEntity<>(commentUpdated, HttpStatus.OK);
+    }
+
+
+    private Comment getCommentById(UUID id){
+        Comment comment = commentService.get(id);
+        return comment;
+    }
 }

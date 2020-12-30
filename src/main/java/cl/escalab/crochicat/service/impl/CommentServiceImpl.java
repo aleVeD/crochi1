@@ -2,7 +2,6 @@ package cl.escalab.crochicat.service.impl;
 
 import cl.escalab.crochicat.exception.ModelNotFoundException;
 import cl.escalab.crochicat.model.Comment;
-import cl.escalab.crochicat.model.Post;
 import cl.escalab.crochicat.repo.CommentRepoInterface;
 import cl.escalab.crochicat.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +34,15 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Boolean delete(UUID id) {
-
-        return null;
+        Comment comment = getCommentById(id);
+        commentRepoInterface.deleteById(comment.getId());
+        return true;
     }
 
     @Override
     public Comment update(Comment comment, UUID id) {
-
-        return null;
+        Comment commentUpdated = commentRepoInterface.save(comment);
+        return commentUpdated;
     }
 
     private Comment getCommentById(UUID id){

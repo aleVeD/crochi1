@@ -29,7 +29,7 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public Photo get(UUID id) {
         Photo photo = getPhotoById(id);
-        photoRepoInterface.deleteById(photo.getId());
+        photoRepoInterface.deleteById(photo.getIdPhoto());
         return photo;
     }
 

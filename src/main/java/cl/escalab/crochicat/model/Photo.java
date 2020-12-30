@@ -7,22 +7,24 @@ import java.util.UUID;
 @Table(name="photo")
 public class Photo {
 
+
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID id;
+    private UUID idPhoto;
     @Column(name="title", length = 400)
     private String title;
     @Column(name = "image")
     private Byte image;
-
-    public UUID getId() {
-        return id;
+    public UUID getIdPhoto() {
+        return idPhoto;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setIdPhoto(UUID idPhoto) {
+        this.idPhoto = idPhoto;
     }
+
 
     public String getTitle() {
         return title;
