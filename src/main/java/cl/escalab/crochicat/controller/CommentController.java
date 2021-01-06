@@ -2,7 +2,6 @@ package cl.escalab.crochicat.controller;
 
 import cl.escalab.crochicat.exception.ModelNotFoundException;
 import cl.escalab.crochicat.model.Comment;
-import cl.escalab.crochicat.model.Post;
 import cl.escalab.crochicat.service.CommentService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

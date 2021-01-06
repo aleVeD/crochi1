@@ -18,6 +18,10 @@ public class Post {
     @Column(name="text_post")
     private String textPost;
 
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false, foreignKey = @ForeignKey(name = "FK_user_id"))
+    private User user;
+
     public UUID getId() {
         return id;
     }

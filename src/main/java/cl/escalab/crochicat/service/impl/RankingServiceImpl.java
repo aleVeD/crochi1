@@ -13,7 +13,7 @@ import java.util.UUID;
 @Service
 public class RankingServiceImpl implements RankingService {
     @Autowired
-    RankingRepoInterface rankingRepoInterface;
+    private RankingRepoInterface rankingRepoInterface;
     @Override
     public List<Ranking> getAll() {
         List<Ranking> rankings = rankingRepoInterface.findAll();
