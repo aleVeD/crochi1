@@ -28,6 +28,9 @@ public class Photo {
         this.user = user;
     }
 
+    public Photo() {
+    }
+
     public UUID getIdPhoto() {
         return idPhoto;
     }

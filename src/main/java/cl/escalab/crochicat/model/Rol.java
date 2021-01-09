@@ -8,19 +8,17 @@ import java.util.UUID;
 @Table(name = "rol")
 public class Rol {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID idRol;
+    private Integer idRol;
     @Column(name="name")
     private String name;
     @Column(name = "description")
     private String description;
 
-    public UUID getIdRol() {
+    public Integer getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(UUID idRol) {
+    public void setIdRol(Integer idRol) {
         this.idRol = idRol;
     }
 
