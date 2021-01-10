@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(generator = "UUID")
