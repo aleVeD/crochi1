@@ -1,16 +1,17 @@
 package cl.escalab.crochicat.controller;
-
+import cl.escalab.crochicat.dto.CommentPhotoPostDto;
 import cl.escalab.crochicat.exception.ModelNotFoundException;
 import cl.escalab.crochicat.model.Comment;
 import cl.escalab.crochicat.service.CommentService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -19,6 +20,36 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+
+    @GetMapping(value="/hateoas", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<CommentPhotoPostDto> listComments(){
+        List<Comment> comments = new ArrayList<>();
+        List<CommentPhotoPostDto> listPhoto = new ArrayList<>();
+        comments =commentService.getAll();
+        for(Comment c : comments) {
+            CommentPhotoPostDto ph = new CommentPhotoPostDto();
+            ph.getComments();
+            ph.getPost().getTextPost();
+            ph.getPhoto().getImage();
+
+            WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CommentController.class).getAllComments());
+            ph.add(linkTo.withSelfRel());
+            listPhoto.add(ph);
+
+            WebMvcLinkBuilder linkTo2 = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PhotoController.class).getPhoto(ph.getPhoto().getIdPhoto()));
+            ph.add(linkTo2.withSelfRel());
+            listPhoto.add(ph);
+
+            WebMvcLinkBuilder linkTo3 = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PostController.class).getPost(ph.getPost().getId()));
+            ph.add(linkTo3.withSelfRel());
+            listPhoto.add(ph);
+            }
+            return listPhoto;
+
+        }
+
+
+
 
     @GetMapping
     public ResponseEntity<List<Comment>> getAllComments(){

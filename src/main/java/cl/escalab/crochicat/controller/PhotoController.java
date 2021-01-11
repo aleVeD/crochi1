@@ -20,6 +20,7 @@ public class PhotoController {
         this.photoService = photoService;
     }
 
+
     @GetMapping
     public ResponseEntity<List<Photo>> getAllPhotos(){
         List<Photo> photos = photoService.getAll();
@@ -37,6 +38,12 @@ public class PhotoController {
         Photo photoDeleted = getPhotoById(id);
         photoService.delete(id);
         return new ResponseEntity<>(photoDeleted, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Photo> getPhoto(UUID id){
+        Photo photo = getPhotoById(id);
+        return new ResponseEntity<>(photo, HttpStatus.OK);
     }
 
     private Photo getPhotoById(UUID id){

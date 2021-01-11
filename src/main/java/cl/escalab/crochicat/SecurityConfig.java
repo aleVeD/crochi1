@@ -41,7 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// Beans
 
 	@Autowired
-	@Qualifier("dataSource")
 	private UserDetailsService userDetailsService;
 	
 	@Autowired

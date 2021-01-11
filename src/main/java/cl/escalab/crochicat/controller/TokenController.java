@@ -1,4 +1,4 @@
-package com.escalab.mediappbackend.controller;
+package cl.escalab.crochicat.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;

@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepoInterface.findOneByUsername(username);
+        User user = userRepoInterface.findOneByEmail(username);
 
         if(user == null){
             throw new UsernameNotFoundException(String.format("usuario no corresponde", username));
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         user.getRoles().forEach(rol->{
             roles.add(new SimpleGrantedAuthority(rol.getName()));
               });
-        UserDetails ud = new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), roles);
+        UserDetails ud = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), roles);
 
         return ud;
     }
