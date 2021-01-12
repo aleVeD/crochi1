@@ -12,14 +12,11 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/users")
 public class UserController {
 	
 	@Autowired
@@ -35,6 +32,12 @@ public class UserController {
 	public ResponseEntity<List<User>> getAll(){
 		List<User> lista = userService.getAll();
 		return new ResponseEntity<List<User>>(lista, HttpStatus.OK);
+	}
+
+	@PostMapping
+	public ResponseEntity<User> saveUser(@RequestBody User user){
+		User userSaved = userService.save(user);
+		return new ResponseEntity<>(userSaved, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")

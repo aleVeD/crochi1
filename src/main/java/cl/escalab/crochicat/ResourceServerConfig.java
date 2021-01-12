@@ -36,11 +36,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		.authorizeRequests()
 				.antMatchers("/swagger.ui.html/**").authenticated()
 				.antMatchers("/posts/**").permitAll()
+				.antMatchers("/comments/hateoas/**").permitAll()
 				.antMatchers("/comments/**").authenticated()
 				.antMatchers("/ranking/**").authenticated()
 				.antMatchers("/photo/**").authenticated()
 				.antMatchers("/tokens/**").permitAll()
-				.antMatchers("/usuarios/").permitAll()
+				.antMatchers("/oauth/token").permitAll()
+				.antMatchers("/users/").permitAll()
 				.antMatchers("/usuarios/getAll/**").hasRole("USER");
 	}
 
