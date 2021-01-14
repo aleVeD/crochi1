@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.UUID;
 @ApiModel(description = "Comentario de algun post")
 @Entity
-@Table(name="comment")
+@Table(name="comments")
 public class Comment {
     @Id
     @GeneratedValue(generator = "UUID")
