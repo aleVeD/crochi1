@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> savePost(@RequestBody Post post){
+    public ResponseEntity<Post> savePost(@Valid @RequestBody Post post){
         Post postSaved = postService.save(post);
         return new ResponseEntity<>(postSaved, HttpStatus.OK);
     }

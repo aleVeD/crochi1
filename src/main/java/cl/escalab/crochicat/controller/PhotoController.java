@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +29,7 @@ public class PhotoController {
     }
 
     @PostMapping
-    public ResponseEntity<Photo> savePhoto(@RequestBody Photo photo){
+    public ResponseEntity<Photo> savePhoto(@Valid @RequestBody Photo photo){
         Photo photo1 = photoService.save(photo);
         return new ResponseEntity<>(photo, HttpStatus.OK);
     }

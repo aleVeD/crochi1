@@ -13,9 +13,9 @@ public class Post {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
-    @Column(name="title")
+    @Column(name="title", length = 300, nullable = false)
     private String title;
-    @Column(name="text_post")
+    @Column(name="text_post", length = 600, nullable = false)
     private String textPost;
 
     @ManyToOne

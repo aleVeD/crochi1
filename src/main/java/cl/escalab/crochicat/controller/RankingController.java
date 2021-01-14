@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,7 +28,7 @@ public class RankingController {
     }
 
     @PostMapping
-    public ResponseEntity<Ranking> saveRanking(@RequestBody Ranking ranking){
+    public ResponseEntity<Ranking> saveRanking(@Valid @RequestBody Ranking ranking){
         Ranking ran = rankingService.save(ranking);
         return new ResponseEntity<>(ran, HttpStatus.OK);
     }

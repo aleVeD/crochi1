@@ -9,7 +9,10 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -58,7 +61,7 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<Comment> saveComment(@RequestBody Comment comment){
+    public ResponseEntity<Comment> saveComment(@Valid @RequestBody Comment comment){
         Comment commentSaved = commentService.save(comment);
         return new ResponseEntity<Comment>(commentSaved, HttpStatus.OK);
     }

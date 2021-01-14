@@ -15,7 +15,7 @@ public class Photo {
     @Column(name="title", length = 400)
     private String title;
     @ApiModelProperty(notes = "esta propiedad es obligatoria")
-    @Column(name = "image")
+    @Column(name = "image", nullable = false)
     private Byte image;
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false, foreignKey = @ForeignKey(name = "FK1_user_id"))
