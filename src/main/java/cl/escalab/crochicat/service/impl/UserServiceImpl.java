@@ -1,4 +1,5 @@
 package cl.escalab.crochicat.service.impl;
+import cl.escalab.crochicat.model.Rol;
 import cl.escalab.crochicat.model.User;
 import cl.escalab.crochicat.repo.UserRepoInterface;
 import cl.escalab.crochicat.service.UserService;
@@ -37,7 +38,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return ud;
     }
     @Override
-    public User save(User obj) {
+    public User saveUser(User obj, int  id) {
+        List<Rol> rol = new ArrayList<>();
+        rol.add(rol.get(id));
+        User user = new User();
+        user.setEmail(obj.getEmail());
+        user.setLastName(obj.getLastName());
+        user.setName(obj.getName());
+        user.setRoles(rol);
         return userRepoInterface.save(obj);
     }
 
@@ -49,6 +57,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public List<User> getAll() {
         return userRepoInterface.findAll();
+    }
+
+    @Override
+    public User save(User obj) {
+        return null;
     }
 
     @Override
