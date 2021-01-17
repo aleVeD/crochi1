@@ -26,7 +26,6 @@ public class RankingController {
 
 
     @ApiOperation(value = "obtener rankings de fotos",
-            notes = "",
             response = List.class,
             responseContainer = "Ranking")
     @ApiResponses(value = {@ApiResponse(code= 400, message = "rankings no se obtubieron"),
@@ -53,7 +52,6 @@ public class RankingController {
     }
 
     @ApiOperation(value = "obtener un ranking de una foto",
-            notes = "",
             response = List.class,
             responseContainer = "Ranking")
     @ApiResponses(value = {@ApiResponse(code= 400, message = "ranking no se obtubo"),
@@ -65,6 +63,12 @@ public class RankingController {
         return new ResponseEntity<>(ranking, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "obtener un ranking de una foto",
+            response = List.class,
+            responseContainer = "Ranking")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "ranking no se obtubo"),
+            @ApiResponse(code = 404, message = "ranking no fue encontrado"),
+            @ApiResponse(code = 200, message = "Ranking encontrado exitosamente")})
     @DeleteMapping("/{id}")
     public ResponseEntity<Ranking> deleteRanking(@PathVariable("id") UUID id){
         Ranking ranking = getRankingById(id);
