@@ -19,7 +19,6 @@ public class PhotoServiceImpl implements PhotoService{
     @Autowired
     private PhotoRepoInterface photoRepoInterface;
 
-    private String root;
     @Override
     public List<Photo> getAll() {
         return photoRepoInterface.findAll();
@@ -44,7 +43,7 @@ public class PhotoServiceImpl implements PhotoService{
     }
 
     @Override
-    public SavePhotoDto savePhoto(UUID id, MultipartFile file) throws IOException {
+    public Photo savePhoto(UUID id, MultipartFile file) throws IOException {
         try {
             User user = new User(id);
             Photo photo = new Photo();
@@ -53,12 +52,10 @@ public class PhotoServiceImpl implements PhotoService{
             photo.setImage(file.getBytes());
             photo.setUser(user);
             Photo photo2 = photoRepoInterface.save(photo);
-            SavePhotoDto photoDto = new SavePhotoDto(user, photo2);
-            return photoDto;
+            return photo2;
         }catch(IOException e){
             throw new IOException(e.getMessage());
         }
-
     }
 
     @Override

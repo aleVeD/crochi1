@@ -2,6 +2,9 @@ package cl.escalab.crochicat.controller;
 
 import cl.escalab.crochicat.model.Ranking;
 import cl.escalab.crochicat.service.RankingService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,18 +24,41 @@ public class RankingController {
         this.rankingService = rankingService;
     }
 
+
+    @ApiOperation(value = "obtener rankings de fotos",
+            notes = "",
+            response = List.class,
+            responseContainer = "Ranking")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "rankings no se obtubieron"),
+            @ApiResponse(code = 404, message = "rankings no fueron encontrados"),
+            @ApiResponse(code = 200, message = "Rankings encontrados exitosamente")})
+
     @GetMapping
     public ResponseEntity<List<Ranking>> getRankings(){
         List<Ranking> rankings = rankingService.getAll();
         return new ResponseEntity<>(rankings, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "guardar un ranking de fotos",
+            notes = "",
+            response = List.class,
+            responseContainer = "Ranking")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "rankings no se obtubo"),
+            @ApiResponse(code = 404, message = "ranking no fue encontrado"),
+            @ApiResponse(code = 200, message = "Ranking guardado exitosamente")})
     @PostMapping
-    public ResponseEntity<Ranking> saveRanking(@Valid @RequestBody Ranking ranking){
-        Ranking ran = rankingService.save(ranking);
+    public ResponseEntity<Ranking> saveRanking(@Valid @RequestBody Ranking ranking, UUID id){
+        Ranking ran = rankingService.saveRanking(ranking, id);
         return new ResponseEntity<>(ran, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "obtener un ranking de una foto",
+            notes = "",
+            response = List.class,
+            responseContainer = "Ranking")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "ranking no se obtubo"),
+            @ApiResponse(code = 404, message = "ranking no fue encontrado"),
+            @ApiResponse(code = 200, message = "Ranking encontrado exitosamente")})
     @GetMapping("/{id}")
     public ResponseEntity<Ranking> getRanking(@PathVariable("id") UUID id){
         Ranking ranking = getRankingById(id);

@@ -33,6 +33,13 @@ public class Ranking {
         this.idRanking = idRanking;
     }
 
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
 
     public Float getVote() {
         return vote;

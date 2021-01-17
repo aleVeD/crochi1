@@ -99,28 +99,26 @@ public class CommentController {
             throw new ModelNotFoundException("id: "+id+" no encontrado");
         }
     }
-    @ApiOperation(value = "obtener todos los comentarios",
+    @ApiOperation(value = "eliminar un comentario",
             notes = "",
             response = List.class,
             responseContainer = "Comments")
     @ApiResponses(value = {@ApiResponse(code= 400, message = "comentario no enviado"),
-            @ApiResponse(code = 404, message = "Pagina no encontrada"),
-            @ApiResponse(code = 200, message = "Comentarios obtenidos exitosamente")})
-
+            @ApiResponse(code = 404, message = "Comentario no encontrada"),
+            @ApiResponse(code = 200, message = "Comentario eliminado exitosamente")})
     @DeleteMapping("/{id}")
     public ResponseEntity<Comment> deleteComment(@PathVariable("id") UUID id){
         Comment comment = getCommentById(id);
         commentService.delete(comment.getId());
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
-    @ApiOperation(value = "obtener todos los comentarios",
+    @ApiOperation(value = "actualizar un comentario",
             notes = "",
             response = List.class,
             responseContainer = "Comments")
     @ApiResponses(value = {@ApiResponse(code= 400, message = "comentario no enviado"),
-            @ApiResponse(code = 404, message = "Pagina no encontrada"),
-            @ApiResponse(code = 200, message = "Comentarios obtenidos exitosamente")})
-
+            @ApiResponse(code = 404, message = "Comentario no encontrada"),
+            @ApiResponse(code = 200, message = "Comentario actualizado exitosamente")})
     @PutMapping("/{id}")
     public ResponseEntity<Comment> updateComment(@RequestBody Comment comment, @PathVariable("id") UUID id){
         Comment commentUpdated = commentService.save(commentService.save(getCommentById(id)));

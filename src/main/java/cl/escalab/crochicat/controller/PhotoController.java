@@ -4,6 +4,9 @@ import cl.escalab.crochicat.dto.SavePhotoDto;
 import cl.escalab.crochicat.model.Photo;
 import cl.escalab.crochicat.service.PhotoService;
 import cl.escalab.crochicat.util.ResponseMessage;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,11 +37,17 @@ public class PhotoController {
         List<Photo> photos = photoService.getAll();
         return new ResponseEntity<>(photos, HttpStatus.OK);
     }
-
+    @ApiOperation(value = "guardar una photo",
+            notes = "",
+            response = List.class,
+            responseContainer = "Photo")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "foto no se pudo guardar"),
+            @ApiResponse(code = 404, message = "Foto no encontrada"),
+            @ApiResponse(code = 200, message = "Foto guardada exitosamente exitosamente")})
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<SavePhotoDto> savePhoto(@PathVariable("id") UUID id, @RequestParam("photo") MultipartFile file) throws IOException {
-        SavePhotoDto photoDto = photoService.savePhoto(id, file);
-        return new ResponseEntity<SavePhotoDto>(photoDto, HttpStatus.OK);
+    public ResponseEntity<Photo> savePhoto(@PathVariable("id") UUID id, @RequestParam("photo") MultipartFile file) throws IOException {
+        Photo photo = photoService.savePhoto(id, file);
+        return new ResponseEntity<Photo>(photo, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

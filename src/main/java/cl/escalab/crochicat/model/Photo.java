@@ -40,6 +40,9 @@ public class Photo {
     public Photo() {
 
     }
+    public Photo(UUID id) {
+
+    }
 
     public User getUser() {
         return user;

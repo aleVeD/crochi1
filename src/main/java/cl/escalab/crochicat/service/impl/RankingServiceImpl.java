@@ -1,12 +1,14 @@
 package cl.escalab.crochicat.service.impl;
 
 import cl.escalab.crochicat.exception.ModelNotFoundException;
+import cl.escalab.crochicat.model.Photo;
 import cl.escalab.crochicat.model.Ranking;
 import cl.escalab.crochicat.repo.RankingRepoInterface;
 import cl.escalab.crochicat.service.RankingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,8 +23,14 @@ public class RankingServiceImpl implements RankingService {
     }
 
     @Override
-    public Ranking save(Ranking obj) {
-        return rankingRepoInterface.save(obj);
+    public Ranking saveRanking(Ranking r, UUID id) {
+        List<Photo> photo = new ArrayList<>();
+        photo.add(new Photo(id));
+        Ranking ranking = new Ranking();
+        ranking.setVote(r.getVote());
+        ranking.setPhotos(photo);
+        Ranking rankingrepo = rankingRepoInterface.save(ranking);
+        return rankingrepo;
     }
 
     @Override
@@ -50,5 +58,10 @@ public class RankingServiceImpl implements RankingService {
         }else{
             throw new ModelNotFoundException("el id "+id+" no existe");
         }
+    }
+
+    @Override
+    public Ranking save(Ranking obj) {
+        return null;
     }
 }
