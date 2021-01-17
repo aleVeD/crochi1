@@ -7,6 +7,11 @@ public class SavePhotoDto extends RepresentationModel {
     private User user;
     private Photo photo;
 
+    public SavePhotoDto(User user, Photo photo) {
+        this.user = user;
+        this.photo = photo;
+    }
+
     public User getUser() {
         return user;
     }

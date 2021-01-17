@@ -1,21 +1,25 @@
 package cl.escalab.crochicat.service.impl;
 
+import cl.escalab.crochicat.dto.SavePhotoDto;
 import cl.escalab.crochicat.exception.ModelNotFoundException;
 import cl.escalab.crochicat.model.Photo;
-import cl.escalab.crochicat.model.Post;
+import cl.escalab.crochicat.model.User;
 import cl.escalab.crochicat.repo.PhotoRepoInterface;
 import cl.escalab.crochicat.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PhotoServiceImpl implements PhotoService {
+public class PhotoServiceImpl implements PhotoService{
     @Autowired
     private PhotoRepoInterface photoRepoInterface;
+
+    private String root;
     @Override
     public List<Photo> getAll() {
         return photoRepoInterface.findAll();
@@ -28,10 +32,9 @@ public class PhotoServiceImpl implements PhotoService {
 
     @Override
     public Photo get(UUID id) {
-        Photo photo = getPhotoById(id);
-        photoRepoInterface.getOne(photo.getIdPhoto());
-        return photo;
+        return null;
     }
+
 
     @Override
     public Boolean delete(UUID id) {
@@ -41,10 +44,28 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
+    public SavePhotoDto savePhoto(UUID id, MultipartFile file) throws IOException {
+        try {
+            User user = new User(id);
+            Photo photo = new Photo();
+            photo.setFiletype(file.getContentType());
+            photo.setFilename(file.getName());
+            photo.setImage(file.getBytes());
+            Photo photo2 = photoRepoInterface.save(photo);
+            SavePhotoDto photoDto = new SavePhotoDto(user, photo2);
+            return photoDto;
+        }catch(IOException e){
+            throw new IOException(e.getMessage());
+        }
+
+    }
+
+    @Override
     public Photo update(Photo photo, UUID id) {
         Photo photo1 = photoRepoInterface.save(photo);
         return photo1;
     }
+
 
     private Photo getPhotoById(UUID id){
         Optional<Photo> photo = photoRepoInterface.findById(id);
@@ -54,4 +75,5 @@ public class PhotoServiceImpl implements PhotoService {
             throw new ModelNotFoundException("El id "+id+" no se encuentra");
         }
     }
+
 }

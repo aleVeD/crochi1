@@ -37,6 +37,10 @@ public class User {
         this.roles = roles;
     }
 
+    public User(UUID idUser) {
+        this.idUser = idUser;
+    }
+
     public User(String email) {
         this.email = email;
     }

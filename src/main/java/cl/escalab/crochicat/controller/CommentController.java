@@ -6,7 +6,6 @@ import cl.escalab.crochicat.service.CommentService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -43,13 +42,13 @@ public class CommentController {
             CommentPhotoPostDto ph = new CommentPhotoPostDto();
             ph.getComments();
             ph.getPost().getTextPost();
-            ph.getPhoto().getImage();
+            ph.getPhoto().getIdPhoto();
 
             WebMvcLinkBuilder linkTo = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(CommentController.class).getAllComments());
             ph.add(linkTo.withSelfRel());
             listPhoto.add(ph);
 
-            WebMvcLinkBuilder linkTo2 = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PhotoController.class).getPhoto(ph.getPhoto().getIdPhoto()));
+            WebMvcLinkBuilder linkTo2 = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PhotoController.class).getAllPhotos());
             ph.add(linkTo2.withSelfRel());
             listPhoto.add(ph);
 
