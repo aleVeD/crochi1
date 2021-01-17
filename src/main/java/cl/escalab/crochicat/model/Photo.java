@@ -1,9 +1,15 @@
 package cl.escalab.crochicat.model;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
+import javax.xml.soap.Text;
 import java.util.UUID;
+
+@ApiModel(description = "Post acerca de una foto")
 @Entity
 @Table(name="photo")
 public class Photo {
@@ -12,8 +18,6 @@ public class Photo {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID idPhoto;
-    @Column(name="title", length = 400)
-    private String title;
     @ApiModelProperty(notes = "esta propiedad es obligatoria")
     @Column(name = "image", nullable = false)
     private Byte image;
@@ -21,30 +25,18 @@ public class Photo {
     @JoinColumn(name = "id_user", nullable = false, foreignKey = @ForeignKey(name = "FK1_user_id"))
     private User user;
 
-    public Photo(UUID idPhoto, String title, Byte image, User user) {
-        this.idPhoto = idPhoto;
-        this.title = title;
-        this.image = image;
-        this.user = user;
-    }
+
 
     public Photo() {
     }
+
+
 
     public UUID getIdPhoto() {
         return idPhoto;
     }
     public void setIdPhoto(UUID idPhoto) {
         this.idPhoto = idPhoto;
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public Byte getImage() {

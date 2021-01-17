@@ -1,9 +1,9 @@
 package cl.escalab.crochicat.model;
-
-import org.hibernate.annotations.GenericGenerator;
+import io.swagger.annotations.ApiModel;
 
 import javax.persistence.*;
-import java.util.UUID;
+
+@ApiModel(description = "rol del usuario dentro de la app")
 @Entity
 @Table(name = "rol")
 public class Rol {

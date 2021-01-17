@@ -1,18 +1,21 @@
 package cl.escalab.crochicat.model;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
-@ApiModel(description = "Comentario de algun post")
+@ApiModel(description = "Comentarios de algun post")
 @Entity
 @Table(name="comments")
 public class Comment {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
+    @ApiModelProperty("no debe de ser superior a 1000 caracteres")
     @Column(name = "description", nullable = false, length = 1000)
     private String description;
 

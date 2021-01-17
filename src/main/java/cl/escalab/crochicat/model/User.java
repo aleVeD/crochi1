@@ -1,10 +1,12 @@
 package cl.escalab.crochicat.model;
 
+import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
+@ApiModel(description = "usuarios registrados en la app")
 @Entity
 @Table(name = "users")
 public class User {
@@ -33,6 +35,10 @@ public class User {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public User(String email) {
+        this.email = email;
     }
 
     public User() {

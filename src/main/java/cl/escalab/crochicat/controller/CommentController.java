@@ -4,12 +4,14 @@ import cl.escalab.crochicat.exception.ModelNotFoundException;
 import cl.escalab.crochicat.model.Comment;
 import cl.escalab.crochicat.service.CommentService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,6 +25,14 @@ public class CommentController {
 
     @Autowired
     private CommentService commentService;
+
+    @ApiOperation(value = "obtener todos los comentarios",
+            notes = "",
+            response = List.class,
+            responseContainer = "Comments")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "comentario no enviado"),
+            @ApiResponse(code = 404, message = "Pagina no encontrada"),
+            @ApiResponse(code = 200, message = "Comentarios obtenidos exitosamente")})
 
     @GetMapping(value="/hateoas", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CommentPhotoPostDto> listComments(){
@@ -52,14 +62,26 @@ public class CommentController {
         }
 
 
-
-
+    @ApiOperation(value = "obtener todos los comentarios",
+                  notes = "",
+                  response = List.class,
+                  responseContainer = "Comments")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "comentario no enviado"),
+                           @ApiResponse(code = 404, message = "Pagina no encontrada"),
+                           @ApiResponse(code = 200, message = "Comentarios obtenidos exitosamente")})
     @GetMapping
     public ResponseEntity<List<Comment>> getAllComments(){
         List<Comment> comments = commentService.getAll();
         return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "guardar un comentario",
+            notes = "",
+            response = List.class,
+            responseContainer = "Comments")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "comentario no se pudo guardar"),
+            @ApiResponse(code = 404, message = "Pagina no encontrada"),
+            @ApiResponse(code = 200, message = "Comentario guardado exitosamente")})
     @PostMapping
     public ResponseEntity<Comment> saveComment(@Valid @RequestBody Comment comment){
         Comment commentSaved = commentService.save(comment);
@@ -78,6 +100,13 @@ public class CommentController {
             throw new ModelNotFoundException("id: "+id+" no encontrado");
         }
     }
+    @ApiOperation(value = "obtener todos los comentarios",
+            notes = "",
+            response = List.class,
+            responseContainer = "Comments")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "comentario no enviado"),
+            @ApiResponse(code = 404, message = "Pagina no encontrada"),
+            @ApiResponse(code = 200, message = "Comentarios obtenidos exitosamente")})
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Comment> deleteComment(@PathVariable("id") UUID id){
@@ -85,6 +114,13 @@ public class CommentController {
         commentService.delete(comment.getId());
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
+    @ApiOperation(value = "obtener todos los comentarios",
+            notes = "",
+            response = List.class,
+            responseContainer = "Comments")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "comentario no enviado"),
+            @ApiResponse(code = 404, message = "Pagina no encontrada"),
+            @ApiResponse(code = 200, message = "Comentarios obtenidos exitosamente")})
 
     @PutMapping("/{id}")
     public ResponseEntity<Comment> updateComment(@RequestBody Comment comment, @PathVariable("id") UUID id){

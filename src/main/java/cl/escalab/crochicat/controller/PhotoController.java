@@ -5,7 +5,10 @@ import cl.escalab.crochicat.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,8 +32,10 @@ public class PhotoController {
     }
 
     @PostMapping
-    public ResponseEntity<Photo> savePhoto(@Valid @RequestBody Photo photo){
-        Photo photo1 = photoService.save(photo);
+    @ResponseBody
+    public ResponseEntity<Photo> savePhoto(@RequestParam("file") MultipartFile file, @AuthenticationPrincipal User user){
+        cl.escalab.crochicat.model.User user1 = new cl.escalab.crochicat.model.User(user.getUsername());
+        Photo photo = photoService.save(new Photo(file, user1.getIdUser()));
         return new ResponseEntity<>(photo, HttpStatus.OK);
     }
 

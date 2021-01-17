@@ -1,10 +1,12 @@
 package cl.escalab.crochicat.model;
 
+import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
+@ApiModel(description = "evaluación de cada foto")
 @Entity
 @Table(name = "ranking")
 public class Ranking {
