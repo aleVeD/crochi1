@@ -29,17 +29,24 @@ public class Photo {
     private User user;
 
 
-
-
-    public Photo(UUID idPhoto, String filename, String filetype, byte[] image) {
+    public Photo(UUID idPhoto, String filename, String filetype, byte[] image, User user) {
         this.idPhoto = idPhoto;
         this.filename = filename;
         this.filetype = filetype;
         this.image = image;
+        this.user = user;
     }
 
     public Photo() {
 
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public UUID getIdPhoto() {

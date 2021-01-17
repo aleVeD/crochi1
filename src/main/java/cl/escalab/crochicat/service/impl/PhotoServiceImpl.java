@@ -51,6 +51,7 @@ public class PhotoServiceImpl implements PhotoService{
             photo.setFiletype(file.getContentType());
             photo.setFilename(file.getName());
             photo.setImage(file.getBytes());
+            photo.setUser(user);
             Photo photo2 = photoRepoInterface.save(photo);
             SavePhotoDto photoDto = new SavePhotoDto(user, photo2);
             return photoDto;
