@@ -1,6 +1,7 @@
 package cl.escalab.crochicat.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -10,6 +11,9 @@ import cl.escalab.crochicat.service.ILoginService;
 import cl.escalab.crochicat.service.IResetTokenService;
 import cl.escalab.crochicat.util.EmailUtil;
 import cl.escalab.crochicat.util.Mail;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,7 +43,8 @@ public class LoginController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
-	
+
+
 	@PostMapping(value = "/enviarCorreo", consumes = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<Integer> enviarCorreo(@RequestBody String correo) {
 		int rpta = 0;
@@ -89,7 +94,12 @@ public class LoginController {
 		}
 		return new ResponseEntity<Integer>(rpta, HttpStatus.OK);
 	}
-	
+	@ApiOperation(value = "restablecer un token",
+			response = List.class,
+			responseContainer = "ResetToken")
+	@ApiResponses(value = {@ApiResponse(code= 400, message = "comentario no enviado"),
+			@ApiResponse(code = 404, message = "Comentario no encontrada"),
+			@ApiResponse(code = 200, message = "Comentario actualizado exitosamente")})
 	@PostMapping(value = "/restablecer/{token}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Integer> restablecerClave(@PathVariable("token") String token, @RequestBody String clave ) {
 		int rpta = 0;

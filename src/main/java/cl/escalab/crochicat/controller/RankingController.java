@@ -63,19 +63,24 @@ public class RankingController {
         return new ResponseEntity<>(ranking, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "obtener un ranking de una foto",
+    @ApiOperation(value = "borrar un ranking de una foto",
             response = List.class,
             responseContainer = "Ranking")
     @ApiResponses(value = {@ApiResponse(code= 400, message = "ranking no se obtubo"),
             @ApiResponse(code = 404, message = "ranking no fue encontrado"),
-            @ApiResponse(code = 200, message = "Ranking encontrado exitosamente")})
+            @ApiResponse(code = 200, message = "Ranking eliminado exitosamente")})
     @DeleteMapping("/{id}")
     public ResponseEntity<Ranking> deleteRanking(@PathVariable("id") UUID id){
         Ranking ranking = getRankingById(id);
         rankingService.delete(ranking.getIdRanking());
         return new ResponseEntity<>(ranking, HttpStatus.OK);
     }
-
+    @ApiOperation(value = "actualizar un ranking de una foto",
+            response = List.class,
+            responseContainer = "Ranking")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "ranking no se obtubo"),
+            @ApiResponse(code = 404, message = "ranking no fue encontrado"),
+            @ApiResponse(code = 200, message = "Ranking actualizado exitosamente")})
     @PutMapping("/{id}")
     public ResponseEntity<Ranking> updateRanking(@PathVariable("id") UUID id, @RequestBody Ranking ranking){
         Ranking rankingUpdated = rankingService.save(getRankingById(id));

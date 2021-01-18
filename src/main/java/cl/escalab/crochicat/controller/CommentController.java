@@ -113,7 +113,6 @@ public class CommentController {
         return new ResponseEntity<>(comment, HttpStatus.OK);
     }
     @ApiOperation(value = "actualizar un comentario",
-            notes = "",
             response = List.class,
             responseContainer = "Comments")
     @ApiResponses(value = {@ApiResponse(code= 400, message = "comentario no enviado"),

@@ -23,11 +23,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     private UserRepoInterface userRepoInterface;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepoInterface.findOneByEmail(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepoInterface.findOneByEmail(email);
 
         if(user == null){
-            throw new UsernameNotFoundException(String.format("usuario no corresponde", username));
+            throw new UsernameNotFoundException(String.format("usuario no corresponde", email));
         }
         List<GrantedAuthority> roles = new ArrayList<>();
         user.getRoles().forEach(rol->{

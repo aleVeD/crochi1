@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 @Repository
 public interface UserRepoInterface extends JpaRepository<User, UUID> {
-    User findOneByEmail(String username);
+    User findOneByEmail(String email);
 }

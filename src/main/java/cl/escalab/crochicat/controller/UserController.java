@@ -6,6 +6,9 @@ import java.util.UUID;
 import cl.escalab.crochicat.exception.ModelNotFoundException;
 import cl.escalab.crochicat.model.User;
 import cl.escalab.crochicat.service.UserService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,19 +31,35 @@ public class UserController {
 		List<User> lista = userService.getAll();
 		return new ResponseEntity<List<User>>(lista, HttpStatus.OK);
 	}
-	
+	@ApiOperation(value = "Obtiene todos los usuarios",
+			response = List.class,
+			responseContainer = "User")
+	@ApiResponses(value = {@ApiResponse(code= 400, message = "usuarios no obtenidos"),
+			@ApiResponse(code = 404, message = "Usuario no encontrada"),
+			@ApiResponse(code = 200, message = "Lista de usuarios  exitosa")})
 	@GetMapping("/getAll")
 	public ResponseEntity<List<User>> getAll(){
 		List<User> lista = userService.getAll();
 		return new ResponseEntity<List<User>>(lista, HttpStatus.OK);
 	}
-
+	@ApiOperation(value = "guardar un usuario",
+			response = List.class,
+			responseContainer = "Photo")
+	@ApiResponses(value = {@ApiResponse(code= 400, message = "usuario no se pudo guardar"),
+			@ApiResponse(code = 404, message = "Usuario no encontrado"),
+			@ApiResponse(code = 200, message = "Usuario guardada  exitosamente")})
 	@PostMapping
 	public ResponseEntity<User> saveUser(@Valid @RequestBody User user, @RequestParam int id){
 		User userSaved = userService.saveUser(user, id);
 		return new ResponseEntity<>(userSaved, HttpStatus.OK);
 	}
-	
+
+	@ApiOperation(value = "obtener un usuario",
+			response = List.class,
+			responseContainer = "Photo")
+	@ApiResponses(value = {@ApiResponse(code= 400, message = "usuario no se pudo obtener"),
+			@ApiResponse(code = 404, message = "Usuario no encontrado"),
+			@ApiResponse(code = 200, message = "Usuario encontrado  exitosamente")})
 	@GetMapping("/{id}")
 	public ResponseEntity<User> listarPorId(@PathVariable("id") UUID id){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

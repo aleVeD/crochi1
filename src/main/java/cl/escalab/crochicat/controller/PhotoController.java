@@ -38,18 +38,23 @@ public class PhotoController {
         return new ResponseEntity<>(photos, HttpStatus.OK);
     }
     @ApiOperation(value = "guardar una photo",
-            notes = "",
             response = List.class,
             responseContainer = "Photo")
     @ApiResponses(value = {@ApiResponse(code= 400, message = "foto no se pudo guardar"),
             @ApiResponse(code = 404, message = "Foto no encontrada"),
-            @ApiResponse(code = 200, message = "Foto guardada exitosamente exitosamente")})
+            @ApiResponse(code = 200, message = "Foto guardada  exitosamente")})
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Photo> savePhoto(@PathVariable("id") UUID id, @RequestParam("photo") MultipartFile file) throws IOException {
         Photo photo = photoService.savePhoto(id, file);
         return new ResponseEntity<Photo>(photo, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "borrar una photo",
+            response = List.class,
+            responseContainer = "Photo")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "foto no se pudo guardar"),
+            @ApiResponse(code = 404, message = "Foto no encontrada"),
+            @ApiResponse(code = 200, message = "Foto eliminada  exitosamente")})
     @DeleteMapping("/{id}")
     public ResponseEntity<Photo> deletePhoto(@PathVariable("id") UUID id){
         Photo photoDeleted = getPhotoById(id);
@@ -57,6 +62,12 @@ public class PhotoController {
         return new ResponseEntity<>(photoDeleted, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "encontrar una photo",
+            response = List.class,
+            responseContainer = "Photo")
+    @ApiResponses(value = {@ApiResponse(code= 400, message = "foto no se pudo guardar"),
+            @ApiResponse(code = 404, message = "Foto no encontrada"),
+            @ApiResponse(code = 200, message = "Foto encontrada  exitosamente")})
     @GetMapping("/{id}")
     public ResponseEntity<Photo> getPhoto(UUID id){
         Photo photo = getPhotoById(id);
